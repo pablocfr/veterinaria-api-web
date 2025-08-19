@@ -96,7 +96,7 @@ namespace Capa_Datos.Repositorio
                     IdCliente = reader.GetInt32(12),
                     Estado = reader.GetBoolean(13),
 
-                    Cliente = new Cliente
+                    Cliente = new Capa_Entidad.Entidades.Cliente
                     {
                         IdCliente = reader.GetInt32(14),
                         Nombre = reader.GetString(15),

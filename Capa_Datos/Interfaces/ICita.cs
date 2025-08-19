@@ -12,5 +12,13 @@ namespace Capa_Datos.Interfaces
     {
         List<Cita> listarCitas();
         Cita ObtenerPorId(int id);
+
+        List<Cita> listarCitaPorFecha(DateTime fecha);
+
+        Cita registarCita(Cita cita);
+
+        void actualizarCita(Cita cita);
+
+        void eliminarCita(int id);
     }
 }

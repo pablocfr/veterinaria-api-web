@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,67 @@ namespace Capa_Datos.Repositorio
         public CitaRepositorio(IConfiguration config)
         {
             cadenaConexion = config["ConnectionStrings:DB"];
+        }
+
+        public void actualizarCita(Cita cita)
+        {
+            using (var conexion = new SqlConnection(cadenaConexion))
+            {
+                var comando = new SqlCommand("sp_ActualizarCita", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+
+                comando.Parameters.AddWithValue("@IdCita", cita.IdCita);
+                comando.Parameters.AddWithValue("@Fecha", cita.Fecha);
+                comando.Parameters.AddWithValue("@Motivo", cita.Motivo);
+                comando.Parameters.AddWithValue("@IdMascota", cita.IdMascota);
+                comando.Parameters.AddWithValue("@IdVeterinario", cita.IdVeterinario);
+
+                conexion.Open();
+                comando.ExecuteNonQuery();
+            }
+        }
+
+        public void eliminarCita(int id)
+        {
+            using (var conexion = new SqlConnection(cadenaConexion))
+            {
+                conexion.Open();
+
+                using (var comando = new SqlCommand("sp_EliminarCita", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    comando.Parameters.AddWithValue("@IdCita", id);
+                    comando.ExecuteNonQuery ();
+                }
+            }
+        }
+
+        public List<Cita> listarCitaPorFecha(DateTime fecha)
+        {
+            var listado = new List<Cita>();
+
+            using (var conexion = new SqlConnection(cadenaConexion)) 
+            { 
+                conexion.Open();
+
+                using(var comando = new SqlCommand("SP_GetCitasByFecha", conexion))
+                {
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    comando.Parameters.AddWithValue("@Fecha", fecha.Date);
+
+                    using (var reader = comando.ExecuteReader()) 
+                    {
+                        while (reader.Read()) 
+                        {
+                            listado.Add(CitaMapper.Map(reader));
+                        }
+                    }
+                }
+            }
+
+            return listado;
         }
 
         public List<Cita> listarCitas()
@@ -70,6 +132,34 @@ namespace Capa_Datos.Repositorio
             }
 
             return cita;
+        }
+
+        public Cita registarCita(Cita cita)
+        {
+            Cita nuevaCita = null;
+            int nuevoID = 0;
+
+            using (var conexion = new SqlConnection(cadenaConexion))
+            {
+                conexion.Open();
+
+                using (var comando = new SqlCommand("sp_CrearCita", conexion))
+                {
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    comando.Parameters.AddWithValue("@Fecha", cita.Fecha);
+                    comando.Parameters.AddWithValue("@Motivo", cita.Motivo);
+                    comando.Parameters.AddWithValue("@IdMascota", cita.IdMascota);
+                    comando.Parameters.AddWithValue("@IdVeterinario", cita.IdVeterinario);
+
+                    nuevoID = Convert.ToInt32(comando.ExecuteScalar());
+                }
+
+            }
+
+            nuevaCita = ObtenerPorId(nuevoID);
+
+            return nuevaCita;
         }
 
 

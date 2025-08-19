@@ -20,19 +20,24 @@ namespace Capa_Negocio.Servicios
             citaRepositorio = _citaRepositorio;
         }
 
-        public Cita Actualizar(Cita cita)
+        public void Actualizar(Cita cita)
         {
-            throw new NotImplementedException();
+            citaRepositorio.actualizarCita(cita);
         }
 
         public void Eliminar(int id)
         {
-            throw new NotImplementedException();
+            citaRepositorio.eliminarCita(id);
         }
 
         public List<Cita> Listar()
         {
             return citaRepositorio.listarCitas();
+        }
+
+        public List<Cita> ListarPorFecha(DateTime fecha)
+        {
+            return citaRepositorio.listarCitaPorFecha(fecha);
         }
 
         public Cita ObtenerPorId(int id)
@@ -42,7 +47,7 @@ namespace Capa_Negocio.Servicios
 
         public Cita Registrar(Cita cita)
         {
-            throw new NotImplementedException();
+            return citaRepositorio.registarCita(cita);
         }
     }
 }

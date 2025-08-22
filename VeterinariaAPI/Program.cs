@@ -12,17 +12,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Inyectar dependencias 
+//Inyectar dependencias CITAS
 builder.Services.AddScoped<ICitaService, CitaServicio>(); // Servicio (lógica de negocio)
 builder.Services.AddScoped<ICita, CitaRepositorio>(); // Repositorio (acceso a datos)
 
-// Inyección de dependencias
+// Inyección de dependencias VETERINARIO
 builder.Services.AddScoped<IVeterinario, VeterinarioRepositorio>();
 builder.Services.AddScoped<IVeterinarioService, VeterinarioServicio>();
 
-// Inyección de dependencias
+// Inyección de dependencias PRODUCTO
 builder.Services.AddScoped<IProducto, ProductoRepositorio>();
 builder.Services.AddScoped<IProductoService, ProductoServicio>();
+
+// Inyección de dependencias MASCOTAS
+builder.Services.AddScoped<IMascota, MascotaRepositorio>();
+builder.Services.AddScoped<IMascotaService, MascotaServicio>();
 
 
 var app = builder.Build();

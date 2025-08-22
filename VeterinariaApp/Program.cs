@@ -1,7 +1,18 @@
+using Capa_Datos.Interfaces;
+using Capa_Datos.Repositorio;
+using Capa_Negocio.Interfaces;
+using Capa_Negocio.Servicios;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 

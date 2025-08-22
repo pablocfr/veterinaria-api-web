@@ -16,6 +16,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICitaService, CitaServicio>(); // Servicio (lógica de negocio)
 builder.Services.AddScoped<ICita, CitaRepositorio>(); // Repositorio (acceso a datos)
 
+// Inyección de dependencias
+builder.Services.AddScoped<IVeterinario, VeterinarioRepositorio>();
+builder.Services.AddScoped<IVeterinarioService, VeterinarioServicio>();
+
+// Inyección de dependencias
+builder.Services.AddScoped<IProducto, ProductoRepositorio>();
+builder.Services.AddScoped<IProductoService, ProductoServicio>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

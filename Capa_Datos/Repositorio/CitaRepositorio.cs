@@ -200,8 +200,8 @@ namespace Capa_Datos.Repositorio
 
                 Veterinario = new Veterinario
                 {
-                    IdVeterinario = reader.GetInt32(21),
-                    Nombre = reader.GetString(22),
+                    IDVeterinario = reader.GetInt32(21),
+                    NombreCompleto = reader.GetString(22),
                     DNI = reader.GetString(23),
                     Telefono = reader.GetString(24),
                     Especialidad = reader.GetString(25),

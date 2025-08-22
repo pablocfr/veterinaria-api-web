@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Capa_Datos\Capa_Datos.csproj" />
     <ProjectReference Include="..\Capa_Entidad\Capa_Entidad.csproj" />
   </ItemGroup>

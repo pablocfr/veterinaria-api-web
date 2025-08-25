@@ -134,7 +134,12 @@ namespace VeterinariaApp.Controllers
         [HttpPost]
         public IActionResult Edit(Producto producto)
         {
+            var productoActual = ObtenerPorId(producto.IdProducto);
+
+            producto.Estado = productoActual.Estado;
+
             ActualizarProducto(producto);
+
             return RedirectToAction("Index");
         }
 

@@ -61,6 +61,7 @@ namespace VeterinariaApp.Controllers
             var totales = ObtenerTotalesDashboard();
             return View(totales);
         }
+        
     }
 }
     

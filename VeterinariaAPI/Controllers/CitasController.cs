@@ -77,6 +77,13 @@ namespace VeterinariaAPI.Controllers
             _citaService.Eliminar(id);
             return Ok("Cita elimina correctamente");
         }
+
+        [HttpGet]
+        [Route("/cantidad-citas")]
+        public async Task<IActionResult> CantidadCitas()
+        {
+            return Ok(await Task.Run(() => _citaService.Listar().Count()));
+        }
     }
 }
 

@@ -11,7 +11,7 @@ namespace Capa_Entidad.Entidades
         public int IdVenta { get; set; }
         public DateTime Fecha { get; set; }
         public int IdCliente { get; set; }
-        public Double Total { get; set; }
+        public decimal Total { get; set; }
 
         public Cliente Cliente { get; set; }
     }

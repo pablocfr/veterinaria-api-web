@@ -11,7 +11,7 @@ namespace Capa_Datos.Interfaces
     {
         List<Venta> ListaVentas();
         List<Detalle_Venta> ListDetalleVentas();
-        Venta ObtenerVentaPorId(int id);
+        Detalle_Venta ObtenerVentaPorId(int id);
         string GrabarVenta(int id, decimal total, List<Detalle_Venta> detalle);
         Detalle_Venta RegistrarDetalleVenta(Detalle_Venta venta);
         void eliminarVenta(int id);

@@ -28,6 +28,9 @@ builder.Services.AddScoped<IProductoService, ProductoServicio>();
 builder.Services.AddScoped<IMascota, MascotaRepositorio>();
 builder.Services.AddScoped<IMascotaService, MascotaServicio>();
 
+// Inyección de dependencias VENTAS
+builder.Services.AddScoped<IVenta, VentaRepositorio>();
+builder.Services.AddScoped<IVentaService, VentaServicio>();
 
 var app = builder.Build();
 

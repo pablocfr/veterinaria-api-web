@@ -10,9 +10,10 @@ namespace Capa_Negocio.Interfaces
     public interface ICitaService
     {
         List<Cita> Listar();
+        List<Cita> ListarPorFecha(DateTime fecha);
         Cita ObtenerPorId(int id);
         Cita Registrar(Cita cita);
-        Cita Actualizar(Cita cita);
+        void Actualizar(Cita cita);
         void Eliminar(int id);
     }
 }

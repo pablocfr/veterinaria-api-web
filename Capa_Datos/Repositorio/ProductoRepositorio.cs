@@ -42,7 +42,7 @@ namespace Capa_Datos.Repositorio
                     command.ExecuteNonQuery();
                 }
             }
-            return ObtenerPorId(producto.IdProducto);
+            return ObtenerPorId((int)producto.IdProducto);
         }
 
         public bool EliminarProducto(int idProducto)

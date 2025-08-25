@@ -12,6 +12,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Inyección de dependencias HISTORIAL
+builder.Services.AddScoped<IHistorial, HistorialRepositorio>();
+builder.Services.AddScoped<IHistorialService, HistorialServicio>();
+
 // Inyección de dependencias SERVICIO
 builder.Services.AddScoped<IServicio, ServicioRepositorio>();
 builder.Services.AddScoped<IServicioService, ServicioServicio>();

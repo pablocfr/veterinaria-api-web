@@ -1,0 +1,59 @@
+﻿@model VeterinariaApp.Models.Producto
+
+@{
+    ViewData["Title"] = "Eliminar Producto";
+}
+
+<div class="modal-dialog">
+    <div class="modal-content p-4">
+        <div class="modal-header border-0">
+            <h5 class="modal-title text-danger">
+                <strong>Eliminar Producto</strong> ❌
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+            <p class="text-muted mb-4">
+                ¿Estás seguro que deseas eliminar este producto? Esta acción no se puede deshacer.
+            </p>
+
+            <dl class="row">
+                <dt class="col-sm-4">Nombre</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Nombre)</dd>
+
+                <dt class="col-sm-4">Descripción</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Descripcion)</dd>
+
+                <dt class="col-sm-4">Precio</dt>
+                <dd class="col-sm-8">S/. @Html.DisplayFor(model => model.Precio)</dd>
+
+                <dt class="col-sm-4">Stock</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Stock)</dd>
+
+                <dt class="col-sm-4">Tipo</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Tipo)</dd>
+
+                <dt class="col-sm-4">Proveedor</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.IdProveedor)</dd>
+
+                <dt class="col-sm-4">Estado</dt>
+                <dd class="col-sm-8">
+                    @(Model.Estado ? "Activo ✅" : "Inactivo ❌")
+                </dd>
+            </dl>
+        </div>
+
+        <div class="modal-footer border-0">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="IdProducto" />
+                <button type="submit" class="btn btn-danger">
+                    🗑️ Eliminar
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

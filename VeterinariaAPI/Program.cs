@@ -24,6 +24,15 @@ builder.Services.AddScoped<IVeterinarioService, VeterinarioServicio>();
 builder.Services.AddScoped<IProducto, ProductoRepositorio>();
 builder.Services.AddScoped<IProductoService, ProductoServicio>();
 
+// Inyección de dependencias
+builder.Services.AddScoped<IDashboard, DashboardRepositorio>();
+builder.Services.AddScoped<IDashboardService, DashboardServicio>();
+
+// Inyección de dependencias para próximas citas
+builder.Services.AddScoped<IProximaCita, ProximaCitaRepositorio>();
+builder.Services.AddScoped<IProximaCitaService, ProximaCitaServicio>();
+
+
 
 var app = builder.Build();
 

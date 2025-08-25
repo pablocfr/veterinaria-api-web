@@ -1,0 +1,55 @@
+﻿@model VeterinariaApp.Models.Veterinario
+
+@{
+    ViewData["Title"] = "Eliminar Veterinario";
+}
+
+<div class="modal-dialog">
+    <div class="modal-content p-4">
+        <div class="modal-header border-0">
+            <h5 class="modal-title text-danger">
+                <strong>Eliminar Veterinario</strong> 🗑️
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+            <p class="text-muted mb-4">
+                ¿Estás seguro que deseas eliminar este veterinario?
+                Esta acción no se puede deshacer.
+            </p>
+
+            <dl class="row">
+                <dt class="col-sm-4">ID</dt>
+                <dd class="col-sm-8">@Model.IDVeterinario</dd>
+
+                <dt class="col-sm-4">Nombre</dt>
+                <dd class="col-sm-8">@Model.NombreCompleto</dd>
+
+                <dt class="col-sm-4">DNI</dt>
+                <dd class="col-sm-8">@Model.DNI</dd>
+
+                <dt class="col-sm-4">Especialidad</dt>
+                <dd class="col-sm-8">@Model.Especialidad</dd>
+
+                <dt class="col-sm-4">Teléfono</dt>
+                <dd class="col-sm-8">@Model.Telefono</dd>
+
+                <dt class="col-sm-4">Correo</dt>
+                <dd class="col-sm-8">@Model.Correo</dd>
+
+                <dt class="col-sm-4">Estado</dt>
+                <dd class="col-sm-8">@Model.Estado</dd>
+            </dl>
+
+            <form asp-action="DeleteVeterinario" method="post">
+                <input type="hidden" asp-for="IDVeterinario" />
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <a asp-action="Index" class="btn btn-secondary">❌ Cancelar</a>
+                    <button type="submit" class="btn btn-danger">🗑️ Eliminar Veterinario</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Capa_Entidad.Entidades;
 
-namespace Capa_Entidad.Entidades
+namespace VeterinariaApp.Models
 {
-    public class ProximaCita
+    public class ProximasCitas
     {
         public string Mascota { get; set; }
         public string Cliente { get; set; }

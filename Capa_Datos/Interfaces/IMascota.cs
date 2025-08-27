@@ -11,6 +11,6 @@ namespace Capa_Datos.Interfaces
         List<Mascota> BuscarPorNombre(string nombre);
         Mascota RegistrarMascota(Mascota Mascota);
         void actualizarMascota(Mascota Mascota);
-        void eliminarMascota(int id);
+        void eliminarMascota(int id); //m
     }
 }

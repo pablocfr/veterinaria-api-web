@@ -66,6 +66,7 @@ namespace VeterinariaApp.Controllers
 
             return nuevaVenta;
         }
+
         private List<Cliente> ObtenerClientes()
         {
             var listado = new List<Cliente>();
@@ -103,6 +104,28 @@ namespace VeterinariaApp.Controllers
             }
             return listado ?? new List<Servicio>();
         }
+
+        private Detalle_Venta ObtenerDetalleVentaPorId(int id)
+        {
+            {
+                Detalle_Venta detalle = null;
+
+                using (var http = new HttpClient())
+                {
+                    http.BaseAddress = new Uri(_config["Services:URL"]);
+
+                    var mensaje = http.GetAsync($"Ventas/busqueda/{id}").Result;
+
+                    if (mensaje.IsSuccessStatusCode)
+                    {
+                        var data = mensaje.Content.ReadAsStringAsync().Result;
+                        detalle = JsonConvert.DeserializeObject<Detalle_Venta>(data);
+                    }
+                }
+
+                return detalle;
+            }
+        }
         #endregion
         public IActionResult Index()
         {
@@ -125,6 +148,13 @@ namespace VeterinariaApp.Controllers
         {
             RegistrarDetalleVenta(venta, detalles);
             return RedirectToAction("Index"); ;
+        }
+
+        public IActionResult Details(int id)
+        {
+            var detalle = ObtenerDetalleVentaPorId(id);
+
+            return View(detalle);
         }
 
 

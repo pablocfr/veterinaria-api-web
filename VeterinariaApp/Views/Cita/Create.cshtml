@@ -1,0 +1,70 @@
+﻿@model VeterinariaApp.Models.Cita
+@{
+    ViewData["Title"] = "Nueva Cita";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white text-center">
+                <h5 class="mb-0">Nueva Cita</h5>
+            </div>
+
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <!-- Fecha -->
+                    <div class="mb-3">
+                        <label for="Fecha" class="form-label fw-semibold">Fecha</label>
+                        <input type="date" id="Fecha" name="Fecha" class="form-control" required />
+                    </div>
+
+
+                    <!-- Mascota -->
+                    <div class="mb-3">
+                        <label asp-for="IdMascota" class="form-label fw-semibold"></label>
+                        <select asp-for="IdMascota" class="form-select"
+                                asp-items="ViewBag.Mascotas">
+                            <option value="">Seleccionar mascota</option>
+                        </select>
+                        <span asp-validation-for="Mascota" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Veterinario -->
+                    <div class="mb-3">
+                        <label asp-for="IDVeterinario" class="form-label fw-semibold"></label>
+                        <select asp-for="IDVeterinario" class="form-select"
+                                asp-items="ViewBag.Veterinarios">
+                            <option value="">Seleccionar veterinario</option>
+                        </select>
+                        <span asp-validation-for="Veterinario" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Motivo -->
+                    <div class="mb-4">
+                        <label asp-for="Motivo" class="form-label fw-semibold"></label>
+                        <select asp-for="Motivo" class="form-select"
+                                asp-items="ViewBag.Motivos">
+                            <option value="">Seleccionar tipo</option>
+                        </select>
+                        <span asp-validation-for="Motivo" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-flex gap-2">
+                        <a asp-action="Index" class="btn btn-outline-secondary flex-fill">Cancelar</a>
+                        <button type="submit" class="btn btn-primary flex-fill">
+                            <i class="bi bi-calendar-plus"></i> Programar Cita
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

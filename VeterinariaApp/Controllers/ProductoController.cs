@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using VeterinariaApp.Models;
 
+
 namespace VeterinariaApp.Controllers
 {
     public class ProductoController : Controller
@@ -40,7 +41,8 @@ namespace VeterinariaApp.Controllers
             {
                 productoHTTP.BaseAddress = new Uri(_config["Services:URL"]);
 
-                var contenido = new StringContent(JsonConvert.SerializeObject(producto),
+                StringContent contenido = new StringContent(JsonConvert.SerializeObject(producto),
+                
                     System.Text.Encoding.UTF8, "application/json");
 
                 var mensaje = productoHTTP.PostAsync("Producto", contenido).Result;
@@ -100,6 +102,8 @@ namespace VeterinariaApp.Controllers
 
             return producto;
         }
+
+
         #endregion
         public IActionResult Index(int page = 1)
         {

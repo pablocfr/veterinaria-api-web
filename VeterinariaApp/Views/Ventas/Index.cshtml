@@ -1,0 +1,63 @@
+﻿@model IEnumerable<VeterinariaApp.Models.Detalle_Venta>
+
+@{
+    ViewData["Title"] = "Ventas";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold text-primary">📋 Listado de Ventas</h2>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Registrar nueva venta
+        </a>
+    </div>
+
+    <div class="card shadow-sm rounded-3">
+        <div class="card-body">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>IDVenta</th>
+                        <th>Cliente</th>
+                        <th>Producto</th>
+                        <th>Servicio</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Total Venta</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center fw-bold">@item.IdDetalle</td>
+                            <td>@item.Venta?.Cliente?.Nombre</td>
+                            <td>@item.Producto?.Nombre</td>
+                            <td>@item.Servicio?.Nombre</td>
+                            <td class="text-center">@item.Cantidad</td>
+                            <td class="text-success fw-semibold">S/ @item.SubTotal</td>
+                            <td class="fw-bold">S/ @item.Venta?.Total</td>
+                            <td>@item.Venta?.Fecha.ToString("dd/MM/yyyy")</td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.IdDetalle" class="btn btn-sm btn-warning me-1">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.IdDetalle" class="btn btn-sm btn-info me-1 text-white">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.IdDetalle" class="btn btn-sm btn-danger">
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

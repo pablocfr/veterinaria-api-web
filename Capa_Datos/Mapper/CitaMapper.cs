@@ -20,7 +20,7 @@ namespace Capa_Datos.Mapper
                 IdMascota = reader.GetInt32(3),
                 IdVeterinario = reader.GetInt32(4),
                 EstadoCita = reader.GetString(5),
-                Estado = reader.GetBoolean(6),
+                Estado = reader.GetByte(6) == 1,
 
                 Mascota = new Mascota
                 {
@@ -30,7 +30,7 @@ namespace Capa_Datos.Mapper
                     Edad = reader.GetInt32(10),
                     Sexo = reader.GetString(11),
                     IdCliente = reader.GetInt32(12),
-                    Estado = reader.GetBoolean(13),
+                    Estado = reader.GetByte(13) == 1,
 
                     Cliente = new Cliente
                     {
@@ -40,7 +40,7 @@ namespace Capa_Datos.Mapper
                         Telefono = reader.GetString(17),
                         Direccion = reader.GetString(18),
                         Correo = reader.GetString(19),
-                        Estado = reader.GetBoolean(20),
+                        Estado = reader.GetByte(20) == 1
                     }
                 },
 
@@ -52,7 +52,7 @@ namespace Capa_Datos.Mapper
                     Telefono = reader.GetString(24),
                     Especialidad = reader.GetString(25),
                     Correo = reader.GetString(26),
-                    Estado = reader.GetBoolean(27),
+                    Estado = reader.GetByte(27) == 1,
                 }
             };
         }

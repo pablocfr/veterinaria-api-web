@@ -1,0 +1,68 @@
+﻿@model VeterinariaApp.Models.Cita
+
+@{
+    ViewData["Title"] = "Editar Cita";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-dark text-center">
+                <h5 class="mb-0">✏️ Editar Cita</h5>
+            </div>
+
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="IdCita" />
+
+                    <!-- Mascota -->
+                    <div class="mb-3">
+                        <label asp-for="IdMascota" class="form-label fw-semibold">Mascota</label>
+                        <select asp-for="IdMascota" class="form-select" asp-items="ViewBag.Mascotas">
+                            <option value="">Seleccionar mascota</option>
+                        </select>
+                        <span asp-validation-for="IdMascota" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Veterinario -->
+                    <div class="mb-3">
+                        <label asp-for="IDVeterinario" class="form-label fw-semibold">Veterinario</label>
+                        <select asp-for="IDVeterinario" class="form-select" asp-items="ViewBag.Veterinarios">
+                            <option value="">Seleccionar veterinario</option>
+                        </select>
+                        <span asp-validation-for="IDVeterinario" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Motivo -->
+                    <div class="mb-3">
+                        <label asp-for="Motivo" class="form-label fw-semibold">Motivo</label>
+                        <select asp-for="Motivo" class="form-select" asp-items="ViewBag.Motivos">
+                            <option value="">Seleccionar motivo</option>
+                        </select>
+                        <span asp-validation-for="Motivo" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Fecha -->
+                    <div class="mb-3">
+                        <label asp-for="Fecha" class="form-label fw-semibold">Fecha</label>
+                        <input asp-for="Fecha" class="form-control" type="datetime-local"
+                               value="@ViewBag.FechaFormateada" />
+                        <span asp-validation-for="Fecha" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-flex gap-2">
+                        <a asp-action="Index" class="btn btn-outline-secondary flex-fill">Cancelar</a>
+                        <button type="submit" class="btn btn-primary flex-fill">
+                            💾 Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

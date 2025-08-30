@@ -1,0 +1,56 @@
+﻿@model VeterinariaApp.Models.Venta
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+}
+
+<h2 class="mb-4">Registrar Nueva Venta</h2>
+
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="IdCliente">Cliente</label>
+        @Html.DropDownListFor(m => m.IdCliente, (SelectList)ViewBag.Clientes, "-- Seleccionar Cliente --", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Total</label>
+        @Html.TextBoxFor(m => m.Total, new { @class = "form-control", @readonly = "readonly" })
+    </div>
+
+    <h3>Detalles de la Venta</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Servicio</th>
+                <th>Cantidad</th>
+                <th>SubTotal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="detalle-venta">
+            <tr>
+                <td>
+                    @Html.DropDownList("detalles[0].IdProducto", (SelectList)ViewBag.Productos, "-- Seleccionar Producto --", new { @class = "form-control" })
+                </td>
+                <td>
+                    @Html.DropDownList("detalles[0].IdServicio", (SelectList)ViewBag.Servicios, "-- Seleccionar Servicio --", new { @class = "form-control" })
+                </td>
+                <td>
+                    <input type="number" name="detalles[0].Cantidad" class="form-control" value="1" />
+                </td>
+                <td>
+                    <input type="text" name="detalles[0].SubTotal" class="form-control" readonly />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-secondary">Agregar Detalle</button>
+    <button type="submit" class="btn btn-primary">Registrar Venta</button>
+</form>

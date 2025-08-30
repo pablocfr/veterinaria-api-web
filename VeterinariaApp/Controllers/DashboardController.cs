@@ -40,23 +40,23 @@ namespace VeterinariaApp.Controllers
         }
         
 
-        public IActionResult Index(int page=1)
+        public IActionResult Index(int pagina=1)
         {
-            const int pageSize = 3;
-            var allCitas = ObtenerProximasCitas();
+            int registrosPorPagina = 3;
+            var todasLasCitas = ObtenerProximasCitas();
 
-            int totalRecords = allCitas.Count;
-            int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
-            int skip = (page - 1) * pageSize;
+            int totalRegistros = todasLasCitas.Count;
+            int totalPaginas = (int)Math.Ceiling((double)totalRegistros / registrosPorPagina);
+            int registrosASaltar = (pagina - 1) * registrosPorPagina;
 
-            ViewBag.ProximasCitas = allCitas
+            ViewBag.ProximasCitas = todasLasCitas
                 .OrderBy(c => c.FechaHora)
-                .Skip(skip)
-                .Take(pageSize)
+                .Skip(registrosASaltar)
+                .Take(registrosPorPagina)
                 .ToList();
 
-            ViewBag.Page = page;
-            ViewBag.TotalPages = totalPages;
+            ViewBag.PaginaActual = pagina;
+            ViewBag.TotalPaginas = totalPaginas;
 
             var totales = ObtenerTotalesDashboard();
             return View(totales);

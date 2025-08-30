@@ -35,7 +35,7 @@ namespace Capa_Negocio.Servicios
 
         public List<Venta> ListaVentas()
         {
-            throw new NotImplementedException();
+            return ventaRepositorio.ListaVentas();
         }
 
         public List<Detalle_Venta> ListDetalleVentas()

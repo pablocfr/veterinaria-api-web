@@ -40,18 +40,16 @@ namespace VeterinariaAPI.Controllers
         [HttpPost]
         public IActionResult CrearCita([FromBody] CitaRegistrarDTO dto)
         {
-
             var cita = new Cita
             {
                 Fecha = dto.Fecha,
                 Motivo = dto.Motivo,
                 IdMascota = dto.IdMascota,
-                IdVeterinario = dto.IdVeterinario,
+                IdVeterinario = dto.IdVeterinario
             };
+            var nuevaCita = _citaService.Registrar(cita);
 
-            _citaService.Registrar(cita);
-
-            return Ok("Cita creada correctamente");
+            return Ok(nuevaCita);
         }
 
         [HttpPut]
@@ -66,16 +64,16 @@ namespace VeterinariaAPI.Controllers
                 IdVeterinario = dto.IdVeterinario
             };
 
-            _citaService.Actualizar(cita);
+             _citaService.Actualizar(cita);
 
-            return Ok("Cita actualizada correctamente");
+            return Ok();
         }
 
         [HttpDelete]
         public IActionResult EliminarCita(int id)
         {
             _citaService.Eliminar(id);
-            return Ok("Cita elimina correctamente");
+            return Ok();
         }
 
         [HttpGet]

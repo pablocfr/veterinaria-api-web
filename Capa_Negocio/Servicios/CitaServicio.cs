@@ -33,6 +33,7 @@ namespace Capa_Negocio.Servicios
         public List<Cita> Listar()
         {
             return citaRepositorio.listarCitas();
+
         }
 
         public List<Cita> ListarPorFecha(DateTime fecha)

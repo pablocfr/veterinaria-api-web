@@ -1,0 +1,39 @@
+﻿@model VeterinariaApp.Models.Cita
+
+@{
+    ViewData["Title"] = "Eliminar Cita";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+}
+
+<h1>Eliminar Cita</h1>
+<h4>¿Seguro que quieres eliminar esta cita?</h4>
+
+<div class="card p-3 shadow-sm">
+    <dl class="row">
+        <dt class="col-sm-3">Id Cita</dt>
+        <dd class="col-sm-9">@Model.IdCita</dd>
+
+        <dt class="col-sm-3">Mascota</dt>
+        <dd class="col-sm-9">
+            @(Model.Mascota != null ? Model.Mascota.Nombre : Model.IdMascota.ToString())
+        </dd>
+
+        <dt class="col-sm-3">Veterinario</dt>
+        <dd class="col-sm-9">
+            @(Model.Veterinario != null ? Model.Veterinario.NombreCompleto : Model.IDVeterinario.ToString())
+        </dd>
+
+        <dt class="col-sm-3">Fecha</dt>
+        <dd class="col-sm-9">@Model.Fecha.ToString("dd/MM/yyyy HH:mm")</dd>
+
+        <dt class="col-sm-3">Motivo</dt>
+        <dd class="col-sm-9">@Model.Motivo</dd>
+    </dl>
+</div>
+<br/>
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="id" value="@Model.IdCita" />
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">🗑 Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">↩ Volver a lista</a>
+</form>

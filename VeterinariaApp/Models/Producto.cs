@@ -1,4 +1,6 @@
-﻿namespace VeterinariaApp.Models
+﻿using Newtonsoft.Json;
+
+namespace VeterinariaApp.Models
 {
     public class Producto
     {

@@ -50,7 +50,6 @@ namespace Capa_Datos.Repositorio
                     }
                 }
             }
-
             return (proximacita);
         }
 

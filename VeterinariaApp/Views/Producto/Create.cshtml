@@ -1,0 +1,84 @@
+﻿@model VeterinariaApp.Models.Producto
+
+@{
+    ViewData["Title"] = "Nuevo Producto";
+}
+
+<div class="modal-dialog">
+    <div class="modal-content p-4">
+        <div class="modal-header border-0">
+            <h5 class="modal-title">
+                <strong>Nuevo Producto</strong> 💊
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+            <p class="text-muted mb-4">Agrega un nuevo producto al inventario</p>
+
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <label asp-for="Nombre" class="form-label small">Nombre</label>
+                        <input asp-for="Nombre" placeholder="Ej. Antiparasitario" class="form-control form-control-sm" />
+                        <span asp-validation-for="Nombre" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <label asp-for="Descripcion" class="form-label small">Descripción</label>
+                        <input asp-for="Descripcion" placeholder="Breve descripción del producto" class="form-control form-control-sm" />
+                        <span asp-validation-for="Descripcion" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-4 mb-2">
+                        <label asp-for="Precio" class="form-label small">Precio</label>
+                        <input asp-for="Precio" placeholder="0.00" class="form-control form-control-sm" />
+                        <span asp-validation-for="Precio" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-4 mb-2">
+                        <label asp-for="Stock" class="form-label small">Stock</label>
+                        <input asp-for="Stock" placeholder="Cantidad disponible" class="form-control form-control-sm" />
+                        <span asp-validation-for="Stock" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-4 mb-2">
+                        <label asp-for="Tipo" class="form-label small">Tipo</label>
+                        <input asp-for="Tipo" placeholder="Medicamento, Accesorio, etc." class="form-control form-control-sm" />
+                        <span asp-validation-for="Tipo" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <label asp-for="IdProveedor" class="form-label small">Proveedor</label>
+                        <input asp-for="IdProveedor" placeholder="Ej. Laboratorio XYZ" class="form-control form-control-sm" />
+                        <span asp-validation-for="IdProveedor" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-3 mb-2">
+                        <label asp-for="Estado" class="form-label small">Estado</label>
+                        <select asp-for="Estado" class="form-control form-control-sm">
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                        <span asp-validation-for="Estado" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">
+                        💾 Guardar Producto
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

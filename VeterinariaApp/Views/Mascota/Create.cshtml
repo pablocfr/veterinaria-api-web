@@ -1,0 +1,132 @@
+﻿@model VeterinariaApp.Models.Mascota
+@{
+    ViewData["Title"] = "Nueva Mascota";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+    bool sinClientes = ViewBag.SinClientesActivos is bool b && b;
+}
+
+@if (sinClientes)
+{
+    <div class="alert alert-warning d-flex align-items-center" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        No hay <strong>clientes activos</strong> para asignar. Da de alta un cliente activo antes de crear la mascota.
+    </div>
+}
+
+<form asp-action="Create" method="post" class="card shadow-sm border-0">
+    @Html.AntiForgeryToken()
+
+    <div class="card-header bg-white py-3 d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-paw fs-4 text-success"></i>
+            <div>
+                <h2 class="h5 mb-0">Nueva Mascota</h2>
+                <small class="text-muted">Completa la información y guarda para crear el registro.</small>
+            </div>
+        </div>
+        <span class="badge rounded-pill text-bg-info">
+            <i class="bi bi-person-badge me-1"></i> Cliente requerido
+        </span>
+    </div>
+
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
+
+        <div class="row g-4">
+            <!-- Columna principal -->
+            <div class="col-12 col-lg-8">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label asp-for="Nombre" class="form-label fw-semibold">Nombre de la mascota</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                            <input asp-for="Nombre" class="form-control" placeholder="Ej. Firulais" />
+                        </div>
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Especie" class="form-label fw-semibold">Especie</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-paw"></i></span>
+                            <input asp-for="Especie" class="form-control" placeholder="Perro, Gato…" />
+                        </div>
+                        <span asp-validation-for="Especie" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Raza" class="form-label fw-semibold">Raza</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-badge-ad"></i></span>
+                            <input asp-for="Raza" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Raza" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="Edad" class="form-label fw-semibold">Edad</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-hourglass-split"></i></span>
+                            <input asp-for="Edad" type="number" min="0" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Edad" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label asp-for="Sexo" class="form-label fw-semibold">Sexo</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-gender-ambiguous"></i></span>
+                            <input asp-for="Sexo" class="form-control" placeholder="M / H" />
+                        </div>
+                        <span asp-validation-for="Sexo" class="text-danger"></span>
+                    </div>
+
+                    <!-- Cliente (solo ACTIVO) -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold"><i class="bi bi-person-badge me-1"></i> Cliente</label>
+                        <select asp-for="IdCliente"
+                                class="form-select"
+                                asp-items="ViewBag.Clientes"
+                                disabled="@(sinClientes ? "disabled" : null)">
+                            <option value="">— Selecciona un cliente —</option>
+                        </select>
+                        <span asp-validation-for="IdCliente" class="text-danger"></span>
+
+                        @* Si no hay clientes, enviamos igual el campo (vacío) para evitar errores de binder *@
+                        @if (sinClientes)
+                        {
+                            <input type="hidden" asp-for="IdCliente" />
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna lateral -->
+            <div class="col-12 col-lg-4">
+                <div class="border rounded-3 p-3 bg-light h-100">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-info-circle me-2 text-secondary"></i>
+                        <strong>Recomendaciones</strong>
+                    </div>
+                    <ul class="small mb-0 ps-3">
+                        <li>Elige el <strong>cliente</strong> al que pertenece la mascota.</li>
+                        <li>Verifica <em>Especie</em> y <em>Raza</em> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer bg-white d-flex justify-content-end gap-2">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-x-circle"></i> Cancelar
+        </a>
+        <button type="submit" class="btn btn-success" disabled="@(sinClientes ? "disabled" : null)">
+            <i class="bi bi-check2-circle"></i> Guardar
+        </button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

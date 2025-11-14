@@ -1,0 +1,39 @@
+﻿@model VeterinariaApp.Models.Servicio
+
+@{
+    ViewData["Title"] = "Eliminar Servicio";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+}
+
+<h1>Eliminar Servicio</h1>
+<h4>¿Seguro que quieres eliminar este servicio?</h4>
+
+<div class="card p-3 shadow-sm">
+    <dl class="row">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9">@Model.IdServicio</dd>
+
+        <dt class="col-sm-3">Nombre</dt>
+        <dd class="col-sm-9">@Model.Nombre</dd>
+
+        <dt class="col-sm-3">Descripción</dt>
+        <dd class="col-sm-9">@Model.Descripcion</dd>
+
+        <dt class="col-sm-3">Precio</dt>
+        <dd class="col-sm-9">@Model.Precio.ToString("C")</dd>
+
+        <dt class="col-sm-3">Estado</dt>
+        <dd class="col-sm-9">
+            <span class="badge @(Model.Estado ? "bg-success" : "bg-danger")">
+                @(Model.Estado ? "Activo" : "Inactivo")
+            </span>
+        </dd>
+    </dl>
+</div>
+<br />
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="id" value="@Model.IdServicio" />
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">🗑 Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">↩ Volver a lista</a>
+</form>

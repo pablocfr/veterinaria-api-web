@@ -1,0 +1,25 @@
+﻿@model VeterinariaApp.Models.Mascota
+@{
+    ViewData["Title"] = "Eliminar Mascota";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+}
+
+<h2 class="mb-3 text-danger"><i class="bi bi-trash"></i> Eliminar Mascota</h2>
+
+<div class="alert alert-warning">¿Estás seguro de eliminar esta mascota?</div>
+
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <p><strong>@Model.Nombre</strong> — @Model.Especie @Model.Raza</p>
+        
+    </div>
+</div>
+
+<form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="IdMascota" />
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>

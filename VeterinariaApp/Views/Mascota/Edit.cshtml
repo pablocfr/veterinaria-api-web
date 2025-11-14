@@ -1,0 +1,122 @@
+﻿@model VeterinariaApp.Models.Mascota
+@{
+    ViewData["Title"] = "Editar Mascota";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+}
+
+<form asp-action="Edit" method="post" class="card shadow-sm border-0">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="IdMascota" />
+    <input type="hidden" asp-for="IdCliente" />
+
+    <div class="card-header bg-white py-3 d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-pencil-square fs-4 text-primary"></i>
+            <div>
+                <h2 class="h5 mb-0">Editar Mascota</h2>
+                <small class="text-muted">Actualiza los datos y guarda los cambios.</small>
+            </div>
+        </div>
+        <span class="badge rounded-pill @(Model.Estado ? "text-bg-success" : "text-bg-secondary")">
+            <i class="bi @(Model.Estado ? "bi-check-circle" : "bi-slash-circle") me-1"></i>
+            @(Model.Estado ? "Activo" : "Inactivo")
+        </span>
+    </div>
+
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
+
+        <div class="row g-4">
+            <!-- Columna principal -->
+            <div class="col-12 col-lg-8">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="Nombre" class="form-label fw-semibold">Nombre</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                            <input asp-for="Nombre" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold"><i class="bi bi-person-badge me-1"></i> Cliente</label>
+                        
+                        <div class="form-text">El cliente no se puede cambiar desde esta pantalla.</div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Especie" class="form-label fw-semibold">Especie</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-paw"></i></span>
+                            <input asp-for="Especie" class="form-control" placeholder="Perro, Gato…" />
+                        </div>
+                        <span asp-validation-for="Especie" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Raza" class="form-label fw-semibold">Raza</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-badge-ad"></i></span>
+                            <input asp-for="Raza" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Raza" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label asp-for="Edad" class="form-label fw-semibold">Edad</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-hourglass-split"></i></span>
+                            <input asp-for="Edad" type="number" min="0" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Edad" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label asp-for="Sexo" class="form-label fw-semibold">Sexo</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-gender-ambiguous"></i></span>
+                            <input asp-for="Sexo" class="form-control" placeholder="M / H" />
+                        </div>
+                        <span asp-validation-for="Sexo" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna lateral -->
+            <div class="col-12 col-lg-4">
+                <div class="border rounded-3 p-3 bg-light h-100">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-info-circle me-2 text-secondary"></i>
+                        <strong>Resumen</strong>
+                    </div>
+                    <ul class="small mb-0 ps-3">
+                        <li><strong>Id:</strong> @Model.IdMascota</li>
+                        
+                        <li><strong>Especie/Raza:</strong> @Model.Especie @Model.Raza</li>
+                        <li><strong>Edad:</strong> @Model.Edad</li>
+                        <li><strong>Sexo:</strong> @Model.Sexo</li>
+                        <li><strong>Estado:</strong> @(Model.Estado ? "Activo" : "Inactivo")</li>
+                    </ul>
+                    <div class="text-muted mt-2 small">
+                        <i class="bi bi-shield-exclamation me-1"></i>
+                        Nota: El estado y el cliente no se actualizan desde esta pantalla.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer bg-white d-flex justify-content-end gap-2">
+        <a asp-action="Details" asp-route-id="@Model.IdMascota" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Cancelar
+        </a>
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-save"></i> Guardar cambios
+        </button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

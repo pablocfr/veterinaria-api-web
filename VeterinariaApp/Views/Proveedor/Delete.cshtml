@@ -1,0 +1,45 @@
+﻿@model VeterinariaApp.Models.Proveedor
+
+@{
+    ViewData["Title"] = "Eliminar Proveedor";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+}
+
+<h1>Eliminar Proveedor</h1>
+<h4>¿Seguro que quieres eliminar este proveedor?</h4>
+
+<div class="card p-3 shadow-sm">
+    <dl class="row">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9">@Model.IdProveedor</dd>
+
+        <dt class="col-sm-3">Nombre</dt>
+        <dd class="col-sm-9">@Model.Nombre</dd>
+
+        <dt class="col-sm-3">RUC</dt>
+        <dd class="col-sm-9">@Model.Ruc</dd>
+
+        <dt class="col-sm-3">Teléfono</dt>
+        <dd class="col-sm-9">@Model.Telefono</dd>
+
+        <dt class="col-sm-3">Dirección</dt>
+        <dd class="col-sm-9">@Model.Direccion</dd>
+
+        <dt class="col-sm-3">Correo</dt>
+        <dd class="col-sm-9">@Model.Correo</dd>
+
+        <dt class="col-sm-3">Estado</dt>
+        <dd class="col-sm-9">
+            <span class="badge @(Model.Estado ? "bg-success" : "bg-danger")">
+                @(Model.Estado ? "Activo" : "Inactivo")
+            </span>
+        </dd>
+    </dl>
+</div>
+<br />
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="id" value="@Model.IdProveedor" />
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">🗑 Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">↩ Volver a lista</a>
+</form>

@@ -1,0 +1,75 @@
+﻿@model VeterinariaApp.Models.Veterinario
+
+
+@{
+    ViewData["Title"] = "Editar Veterinario";
+}
+
+<div class="container mt-4">
+    <div class="card shadow rounded-3">
+        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">✏️ Editar Veterinario</h5>
+            <a asp-action="Index" class="btn btn-light btn-sm">← Volver</a>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">Modifica la información del veterinario en el formulario</p>
+
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+                <input type="hidden" asp-for="IDVeterinario" />
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="NombreCompleto" class="form-label fw-semibold"></label>
+                        <input asp-for="NombreCompleto" class="form-control" placeholder="Dr./Dra. Nombre Apellido" />
+                        <span asp-validation-for="NombreCompleto" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="DNI" class="form-label fw-semibold"></label>
+                        <input asp-for="DNI" class="form-control" placeholder="12345678A" />
+                        <span asp-validation-for="DNI" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="Telefono" class="form-label fw-semibold"></label>
+                        <input asp-for="Telefono" class="form-control" placeholder="+51 987654321" />
+                        <span asp-validation-for="Telefono" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Especialidad" class="form-label fw-semibold"></label>
+                        <input asp-for="Especialidad" class="form-control" placeholder="Cirugía, Medicina Interna..." />
+                        <span asp-validation-for="Especialidad" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Correo" class="form-label fw-semibold"></label>
+                        <input asp-for="Correo" class="form-control" placeholder="veterinario@clinica.com" />
+                        <span asp-validation-for="Correo" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label asp-for="Estado" class="form-label fw-semibold"></label>
+                        <select asp-for="Estado" class="form-select">
+                            <option value="true">Activo</option>
+                            <option value="false">Inactivo</option>
+                        </select>
+                        <span asp-validation-for="Estado" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-3">
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">💾 Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

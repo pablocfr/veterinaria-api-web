@@ -1,0 +1,35 @@
+﻿@model VeterinariaApp.Models.Mascota
+@{
+    ViewData["Title"] = "Detalle de Mascota";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+}
+
+<h2 class="mb-3"><i class="bi bi-info-circle"></i> Detalle de Mascota</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Id</dt>
+            <dd class="col-sm-9">@Model.IdMascota</dd>
+            <dt class="col-sm-3">Nombre</dt>
+            <dd class="col-sm-9">@Model.Nombre</dd>
+            <dt class="col-sm-3">Especie</dt>
+            <dd class="col-sm-9">@Model.Especie</dd>
+            <dt class="col-sm-3">Raza</dt>
+            <dd class="col-sm-9">@Model.Raza</dd>
+            <dt class="col-sm-3">Edad</dt>
+            <dd class="col-sm-9">@Model.Edad</dd>
+            <dt class="col-sm-3">Sexo</dt>
+            <dd class="col-sm-9">@Model.Sexo</dd>
+            <dt class="col-sm-3">Cliente</dt>
+            
+            <dt class="col-sm-3">Estado</dt>
+            <dd class="col-sm-9">@(Model.Estado ? "Activo" : "Inactivo")</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3 d-flex gap-2">
+    <a asp-action="Edit" asp-route-id="@Model.IdMascota" class="btn btn-primary"><i class="bi bi-pencil"></i> Editar</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</div>

@@ -1,0 +1,125 @@
+﻿@model VeterinariaApp.Models.Cliente
+@{
+    ViewData["Title"] = "Editar Cliente";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+}
+
+<form asp-action="Edit" method="post" class="card shadow-sm border-0">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="IdCliente" />
+
+    <div class="card-header bg-white py-3 d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-person-gear fs-4 text-primary"></i>
+            <div>
+                <h2 class="h5 mb-0">Editar Cliente</h2>
+                <small class="text-muted">Actualiza los datos y guarda los cambios.</small>
+            </div>
+        </div>
+        <span class="badge rounded-pill @(Model.Estado ? "text-bg-success" : "text-bg-secondary")">
+            <i class="bi @(Model.Estado ? "bi-check-circle" : "bi-slash-circle") me-1"></i>
+            @(Model.Estado ? "Activo" : "Inactivo")
+        </span>
+    </div>
+
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
+
+        <div class="row g-4">
+            <!-- Columna principal -->
+            <div class="col-12 col-lg-8">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label asp-for="Nombre" class="form-label fw-semibold">Nombre completo</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input asp-for="Nombre" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="DNI" class="form-label fw-semibold">DNI</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-credit-card-2-front"></i></span>
+                            <input asp-for="DNI" class="form-control" />
+                        </div>
+                        <span asp-validation-for="DNI" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Telefono" class="form-label fw-semibold">Teléfono</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                            <input asp-for="Telefono" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Telefono" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Correo" class="form-label fw-semibold">Correo</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input asp-for="Correo" class="form-control" type="email" />
+                        </div>
+                        <span asp-validation-for="Correo" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Direccion" class="form-label fw-semibold">Dirección</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                            <input asp-for="Direccion" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Direccion" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold d-block">Estado</label>
+                        <div class="form-check form-switch">
+                            <!-- Checkbox bind a bool (más bonito que select) -->
+                            <input class="form-check-input" asp-for="Estado" />
+                            <label class="form-check-label" for="Estado">
+                                @(Model.Estado ? "Activo" : "Inactivo")
+                            </label>
+                        </div>
+                        <small class="text-muted">Desactiva para inhabilitar al cliente (borrado lógico aparte).</small>
+                        <span asp-validation-for="Estado" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna lateral -->
+            <div class="col-12 col-lg-4">
+                <div class="border rounded-3 p-3 bg-light h-100">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-person-vcard me-2 text-secondary"></i>
+                        <strong>Resumen</strong>
+                    </div>
+                    <ul class="small mb-0 ps-3">
+                        <li><strong>Id:</strong> @Model.IdCliente</li>
+                        <li><strong>Nombre:</strong> @Model.Nombre</li>
+                        <li><strong>DNI:</strong> @Model.DNI</li>
+                        <li><strong>Teléfono:</strong> @Model.Telefono</li>
+                        <li><strong>Correo:</strong> @Model.Correo</li>
+                        <li><strong>Dirección:</strong> @Model.Direccion</li>
+                        <li><strong>Estado:</strong> @(Model.Estado ? "Activo" : "Inactivo")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer bg-white d-flex justify-content-end gap-2">
+        <a asp-action="Details" asp-route-id="@Model.IdCliente" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Cancelar
+        </a>
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-save"></i> Guardar cambios
+        </button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

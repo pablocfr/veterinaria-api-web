@@ -1,0 +1,266 @@
+﻿@model VeterinariaApp.DTOs.VentasRegistrarDTO
+
+@{
+    ViewData["Title"] = "Registrar Venta";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+}
+
+<style>
+    /* ======== ESTILOS PERSONALIZADOS ======== */
+
+    /* Fondo general */
+    body {
+        background-color: #f5f7fa;
+    }
+
+    /* Contenedor principal */
+    .venta-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        animation: fadeIn 0.5s ease;
+    }
+
+    /* Tarjeta principal */
+    .venta-card {
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Encabezado con degradado */
+    .venta-card-header {
+        background: linear-gradient(90deg, #007bff, #00b4d8);
+        color: white;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .venta-card-header h4 {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+    /* Campos */
+    .form-select, .form-control {
+        border-radius: 10px;
+        border: 1px solid #dee2e6;
+        transition: all 0.2s ease;
+    }
+
+        .form-select:focus, .form-control:focus {
+            border-color: #00b4d8;
+            box-shadow: 0 0 0 0.2rem rgba(0, 180, 216, 0.25);
+        }
+
+    label {
+        color: #495057;
+        font-weight: 600;
+    }
+
+    /* Tabla */
+    table {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    thead {
+        background: linear-gradient(90deg, #007bff, #00b4d8);
+        color: white;
+    }
+
+    tbody tr {
+        transition: all 0.2s ease-in-out;
+    }
+
+        tbody tr:hover {
+            background-color: #f1f9ff;
+        }
+
+    /* Botones */
+    .btn-custom {
+        border-radius: 12px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.2);
+        }
+
+    .btn-danger:hover {
+        box-shadow: 0 6px 20px rgba(220, 53, 69, 0.25);
+    }
+
+    /* Footer botones */
+    .venta-footer {
+        border-top: 1px solid #eee;
+        margin-top: 30px;
+        padding-top: 20px;
+    }
+
+    /* Animación */
+    @@keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+</style>
+
+<div class="venta-container">
+
+    <div class="venta-card shadow-lg">
+        <div class="venta-card-header">
+            <h4><i class="bi bi-cart-check me-2"></i>Registrar Venta</h4>
+            <span class="badge bg-light text-primary px-3 py-2 fs-6">Nueva</span>
+        </div>
+
+        <div class="card-body p-5">
+            <form asp-action="Create" method="post" id="formVenta">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <!-- CLIENTE -->
+                <div class="mb-4">
+                    <label asp-for="IdCliente" class="form-label">
+                        <i class="bi bi-person-circle me-2 text-primary"></i>Cliente
+                    </label>
+                    <select asp-for="IdCliente" class="form-select shadow-sm" asp-items="ViewBag.Clientes">
+                        <option value="">-- Seleccione Cliente --</option>
+                    </select>
+                    <span asp-validation-for="IdCliente" class="text-danger small"></span>
+                </div>
+
+                <!-- DETALLES -->
+                <div class="card border-0 shadow-sm rounded-4 mt-4">
+                    <div class="card-header bg-body-tertiary py-3 border-bottom d-flex align-items-center">
+                        <i class="bi bi-list-check text-primary me-2 fs-5"></i>
+                        <h5 class="mb-0 fw-semibold text-dark">Detalles de la Venta</h5>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle text-center" id="tablaDetalles">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Servicio</th>
+                                        <th style="width: 120px;">Cantidad</th>
+                                        <th style="width: 60px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < (Model.Detalles?.Count ?? 1); i++)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <select asp-for="Detalles[@i].IdProducto" class="form-select form-select-sm" asp-items="ViewBag.Productos">
+                                                    <option value="">-- Seleccione --</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select asp-for="Detalles[@i].IdServicio" class="form-select form-select-sm" asp-items="ViewBag.Servicios">
+                                                    <option value="">-- Seleccione --</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input asp-for="Detalles[@i].Cantidad" class="form-control form-control-sm text-end" />
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-outline-danger btn-sm rounded-circle" onclick="eliminarFila(this)">
+                                                    <i class="bi bi-trash3"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <button type="button" class="btn btn-outline-primary btn-custom" onclick="agregarFila()">
+                                <i class="bi bi-plus-circle me-1"></i> Agregar Detalle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOOTER -->
+                <div class="venta-footer text-end mt-4">
+                    <a asp-action="ImprimirVenta" class="btn btn-outline-danger btn-custom px-4 me-2">
+                        <i class="bi bi-file-earmark-pdf me-1"></i> Imprimir Factura
+                    </a>
+                    <button type="submit" class="btn btn-success btn-custom px-5">
+                        <i class="bi bi-check-circle me-1"></i> Registrar Venta
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- PLANTILLA OCULTA -->
+<table style="display:none">
+    <tbody id="filaTemplate">
+        <tr>
+            <td>
+                <select name="Detalles[__index__].IdProducto" class="form-select form-select-sm">
+                    <option value="">-- Seleccione --</option>
+                    @foreach (var p in ViewBag.Productos as SelectList)
+                    {
+                        <option value="@p.Value">@p.Text</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <select name="Detalles[__index__].IdServicio" class="form-select form-select-sm">
+                    <option value="">-- Seleccione --</option>
+                    @foreach (var s in ViewBag.Servicios as SelectList)
+                    {
+                        <option value="@s.Value">@s.Text</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <input name="Detalles[__index__].Cantidad" class="form-control form-control-sm text-end" value="1" />
+            </td>
+            <td>
+                <button type="button" class="btn btn-outline-danger btn-sm rounded-circle" onclick="eliminarFila(this)">
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        function agregarFila() {
+            const tabla = document.querySelector("#tablaDetalles tbody");
+            const rowCount = tabla.rows.length;
+            let template = document.querySelector("#filaTemplate").innerHTML;
+            template = template.replace(/__index__/g, rowCount);
+            tabla.insertAdjacentHTML("beforeend", template);
+        }
+
+        function eliminarFila(btn) {
+            btn.closest("tr").remove();
+        }
+    </script>
+}

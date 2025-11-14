@@ -1,0 +1,135 @@
+﻿@using VeterinariaApp.Models.ViewModelVenta
+@model ViewModelVenta
+@{
+    Layout = null;
+    string fecha = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Venta @Model.numeroventa</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            margin: 20px;
+        }
+
+        .cabecera {
+            margin-bottom: 20px;
+        }
+
+        .titulo {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .datos-cliente {
+            margin-top: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background: #f4f4f4;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .totales {
+            margin-top: 12px;
+            width: 40%;
+            float: right;
+        }
+
+        .nota {
+            margin-top: 40px;
+            font-size: 11px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="cabecera">
+        <div class="titulo">Comprobante de Venta</div>
+        <div>Fecha impresión: @fecha</div>
+        <div class="datos-cliente">
+            <strong>Nº Venta:</strong> @Model.numeroventa <br />
+            <strong>Cliente:</strong> @Model.nombrecliente <br />
+            <strong>Documento:</strong> @Model.documentocliente
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Producto / Servicio</th>
+                <th>Cantidad</th>
+                <th class="text-right">Precio</th>
+                <th class="text-right">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.detalleventa != null && Model.detalleventa.Any())
+            {
+                int i = 1;
+                foreach (var d in Model.detalleventa)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>@d.producto</td>
+                        <td>@d.cantidad</td>
+                        <td class="text-right">@d.precio</td>
+                        <td class="text-right">@d.total</td>
+                    </tr>
+                    i++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5">No hay detalles de venta.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="totales">
+        <table>
+            <tr>
+                <td>Subtotal</td>
+                <td class="text-right">@Model.subtotal</td>
+            </tr>
+            <tr>
+                <td>Impuesto</td>
+                <td class="text-right">@Model.impuesto</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <th class="text-right">@Model.total</th>
+            </tr>
+        </table>
+    </div>
+
+    <div style="clear: both;"></div>
+
+    <div class="nota">
+        Gracias por su compra.
+    </div>
+</body>
+</html>

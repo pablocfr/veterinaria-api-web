@@ -1,0 +1,28 @@
+﻿@model VeterinariaApp.Models.Cliente
+@{
+    ViewData["Title"] = "Eliminar Cliente";
+    Layout = "~/Views/Shared/_LayoutVeterinaria.cshtml";
+}
+
+<h2 class="mb-3 text-danger"><i class="bi bi-trash"></i> Eliminar Cliente</h2>
+
+<div class="alert alert-warning">¿Estás seguro de eliminar (lógico) este cliente?</div>
+
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <p><strong>@Model.Nombre</strong></p>
+        <p>DNI: @Model.DNI | Tel: @Model.Telefono</p>
+        <p>Correo: @Model.Correo</p>
+        <p>Dirección: @Model.Direccion</p>
+        <p>Estado actual: @(Model.Estado ? "Activo" : "Inactivo")</p>
+    </div>
+</div>
+
+<form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="IdCliente" />
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
